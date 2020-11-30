@@ -1,0 +1,11 @@
+---
+- name: Exercise 5b
+  hosts: juniper
+  gather_facts: False
+  tasks:
+    - junos_command:
+        commands: show interfaces terse
+      register: interfaces
+
+    - debug:
+        msg: "{{ interfaces['stdout_lines'][0][21] }}"

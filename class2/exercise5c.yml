@@ -1,0 +1,14 @@
+---
+- name: Exercise 5c
+  hosts: juniper
+  gather_facts: False
+  tasks:
+    - junos_command:
+        commands: show interfaces terse
+      register: interfaces
+
+    - set_fact:
+        intf_line: "{{ interfaces['stdout_lines'][0][21] }}"
+
+    - debug:
+        msg: "Primary IP: {{ intf_line.split()[-1] }}"

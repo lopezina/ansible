@@ -1,0 +1,11 @@
+---
+- name: ptp output
+  hosts: nxos1
+  gather_facts: False
+  tasks:
+    - nxos_command:
+        commands: show ip route vrf management | json
+      register: route_output
+
+    - debug:
+        msg: "{{ route_output['stdout_lines'][0] }}"
