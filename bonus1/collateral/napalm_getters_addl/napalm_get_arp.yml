@@ -1,0 +1,14 @@
+---
+- name: NAPALM get_arp_table and get_mac_address_table
+  hosts: cisco
+  gather_facts: False
+  tasks:
+    - name: napalm getters
+      napalm.napalm.get_facts:
+        filter: arp_table,mac_address_table
+
+    - ansible.builtin.debug:
+        var: napalm_arp_table
+
+    - ansible.builtin.debug:
+        var: napalm_mac_address_table

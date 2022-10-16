@@ -1,0 +1,13 @@
+---
+- name: NXOS Example
+  hosts: nxos
+  tasks:
+    - ansible.builtin.debug:
+        var: vlans
+
+    - name: Configure NEXUS VLANs
+      cisco.nxos.nxos_vlan:
+        vlan_id: "{{ item.vlan_id }}"
+        admin_state: "{{ item.admin_state }}"
+        name: "{{ item.name }}"
+      loop: "{{ vlans }}"

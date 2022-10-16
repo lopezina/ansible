@@ -1,0 +1,13 @@
+---
+- name: napalm 
+  hosts: nxos1
+  gather_facts: False
+  tasks:
+    - name: Retrieve get_facts, get_interfaces
+      napalm.napalm.get_facts:
+        filter: facts,interfaces
+        optional_args:
+          port: 8443
+
+    - ansible.builtin.debug:
+        var: napalm_facts

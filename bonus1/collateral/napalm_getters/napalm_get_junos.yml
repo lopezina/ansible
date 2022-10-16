@@ -1,0 +1,12 @@
+---
+- name: napalm 
+  hosts: juniper
+  gather_facts: False
+  tasks:
+    - name: Retrieve get_facts, get_interfaces
+      napalm.napalm.get_facts:
+        filter: facts,interfaces
+
+    - ansible.builtin.debug:
+        var: napalm_facts
+

@@ -1,0 +1,20 @@
+---
+
+- name: Test napalm merge
+  hosts: arista5:cisco1:vmx1:nxos1
+  gather_facts: False
+  vars:
+    # Added this so I didn't need a custom inventory file.
+    napalm_port:
+        eos: 443
+        ios: 22
+        nxos: 8443
+        junos: 830
+  tasks:
+    - napalm.napalm.install_config:
+        replace_config: False
+        commit_changes: False
+        config_file: "CFGS/{{ inventory_hostname }}-merge.txt"
+        diff_file: "DIFFS/{{ inventory_hostname }}.txt"
+        optional_args:
+          port: "{{ napalm_port[ansible_network_os] }}"

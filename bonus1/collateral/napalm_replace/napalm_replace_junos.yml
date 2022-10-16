@@ -1,0 +1,10 @@
+---
+- name: Juniper Full Config Replace
+  hosts: vmx1
+  gather_facts: False
+  tasks:
+    - napalm.napalm.install_config:
+        replace_config: True
+        commit_changes: False
+        config_file: "CFGS/{{ inventory_hostname }}-default.txt"
+        diff_file: "DIFFS/{{ inventory_hostname }}.txt"

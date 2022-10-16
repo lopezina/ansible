@@ -1,0 +1,16 @@
+---
+- name: Retrieve running configuration
+  hosts: cisco5:vmx1
+  gather_facts: False
+  tasks:
+    - name: get_config
+      napalm.napalm.get_facts:
+        filter: config
+
+    - ansible.builtin.debug:
+        msg: "{{ napalm_config.running.splitlines() }}"
+
+    - name: Save the config locally
+      ansible.builtin.copy:
+        content: "{{ napalm_config.running }}"
+        dest: "{{ inventory_hostname }}.txt"

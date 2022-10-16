@@ -1,0 +1,15 @@
+---
+- name: Retrieve Checkpoint File
+  hosts: nxos2
+  gather_facts: False
+  tasks:
+    - name: Retrieve checkpoint
+      napalm.napalm.get_facts:
+        filter: checkpoint_file
+        optional_args:
+          port: 8443
+
+    - name: Save the checkpoint
+      ansible.builtin.copy:
+        content: "{{ napalm_checkpoint_file }}"
+        dest: "{{ inventory_hostname }}.txt"

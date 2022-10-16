@@ -1,0 +1,17 @@
+---
+- name: Alternate form controlling output format
+  hosts: arista5
+  gather_facts: False
+  tasks:
+    - name: Executing command
+      arista.eos.eos_command:
+        commands:
+          - command: show version
+            output: json
+      register: output
+
+    - ansible.builtin.set_fact:
+        show_ver: "{{ output['stdout'][0] }}"
+
+    - ansible.builtin.debug:
+        msg: "OS Version: {{ show_ver.version }}"
